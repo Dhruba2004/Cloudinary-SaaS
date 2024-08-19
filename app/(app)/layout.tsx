@@ -94,8 +94,8 @@ export default function AppLayout({
           </div>
         </header>
         {/* Page content */}
-        <main className="flex-grow">
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 my-8">
+        <main className="flex-grow ">
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 my-8 max-h-screen">
             {children}
           </div>
         </main>

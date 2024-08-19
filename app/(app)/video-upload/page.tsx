@@ -4,16 +4,33 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const VideoUpload = () => {
-  const router = useRouter()
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [isUploading , setIsUploading] = useState(false)
-  
+  const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter();
+  const MAX_FILE_SIZE = 70 * 1024 * 1024;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
-    setIsUploading(true)
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File size is too large");
+    }
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("originalSize", file.size.toString());
+    try {
+      const response = await axios.post("/api/video-upload", formData);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -51,9 +68,17 @@ const VideoUpload = () => {
           <input
             type="file"
             accept="video"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
             className="file-input file-input-bordered w-full"
           />
         </div>
+        <button
+          type="submit"
+          className="btn btn-primary mt-4 w-full"
+          disabled={isUploading}
+        >
+          {isUploading ? "Uploading..." : "Upload Video"}
+        </button>
       </form>
     </div>
   );

@@ -35,13 +35,13 @@ export default function Home() {
     },
   ];
   return (
-    <section className="flex-grow">
+      <main className="flex-grow">
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content text-center flex flex-col gap-4">
-          <div className="max-w-md mb-[22rem] ">
+        <div className="hero-content text-center gap-4 mb-6">
+          <div className="max-w-md">
             <h1 className="text-5xl font-bold">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                Cloudinary Showcase
+                Cloudinary SaaS
               </span>
             </h1>
             <p className="py-6 text-lg text-gray-400">
@@ -79,6 +79,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </section>
+    </main>
+    
   );
 }
